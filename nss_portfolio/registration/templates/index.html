@@ -1,0 +1,93 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chatbot</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<style>
+    .chat-container {
+        width: 400px;
+        height: 500px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0 auto;
+        padding: 10px;
+      }
+      
+      .chat-header {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .chat-body {
+        height: 400px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow-y: scroll;
+        padding: 10px;
+      }
+      
+      .chat-footer {
+        display: flex;
+        margin-top: 10px;
+      }
+      
+      #user-input {
+        flex: 1;
+        padding: 5px;
+      }
+      
+      #send-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 8px;
+        cursor: pointer;
+      }
+      
+</style>
+
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h1>Chatbot</h1>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <!-- Chat messages will be dynamically added here -->
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="user-input" placeholder="Type your message">
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+  <script>document.addEventListener('DOMContentLoaded', function() {
+    var chatBody = document.getElementById('chat-body');
+    var userInput = document.getElementById('user-input');
+    var sendBtn = document.getElementById('send-btn');
+  
+    sendBtn.addEventListener('click', function() {
+      var message = userInput.value;
+      if (message.trim() !== '') {
+        appendMessage('user', message);
+        userInput.value = '';
+        // Send user message to the backend or ChatGPT API for processing
+        // Handle the response and append it to the chat body
+      }
+    });
+  
+    function appendMessage(sender, message) {
+      var messageElement = document.createElement('div');
+      messageElement.classList.add('message');
+      messageElement.classList.add(sender);
+      messageElement.innerText = message;
+      chatBody.appendChild(messageElement);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  });
+  </script>
+
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
